@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta name="viewport" content="width=width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0">
+            <head>
+                <style type="text/css">
+                    body {
+                        -webkit-overflow-scrolling: touch;
+                        overflow-y: scroll;
+                    }
+                </style>
+                <script type="application/javascript">
+				let callbackMap = new Map();
+				let callbackIndex = 0;
+                function oneParam() {
+                    console.log("call echo");
+                    
+					exec(function(response) {
+						console.log("回调成功");
+						console.log(`type of response : ${typeof response}`);
+						console.log(`response is ${response}`);
+					});
+                }
+				
+				function exec(callback) {
+					callbackIndex++;
+					let callbackId = callbackIndex.toString();
+					let serviceName = "EchoPlugin";
+					let methodName = "echo";
+					let argumets = ["hello from java script!!"];
+					let command = [callbackId,serviceName,methodName,argumets];
+					callbackMap.set(callbackId,callback);
+					console.log(`exec : ${callbackMap.keys()}`);
+					window.webkit.messageHandlers.RCJSBridge.postMessage(command);
+				}
+
+                function nativeCallback(callbackId,status,argumentsAsJson) {
+                    console.log(`callbackId : ${callbackId}`);
+					console.log(`status : ${status}`);
+					console.log(`argumentsAsJson : ${argumentsAsJson}`);
+					let callback = callbackMap.get(callbackId);
+					console.log(`native callback : ${callbackMap.keys()}`);
+					console.log(`callback is ${callback}`);
+					callbackMap.delete(callbackId);
+					callback(1);
+					
+                }
+				
+                </script>
+            </head>
+            
+            <body>
+                <p>这个是最新的内容哈哈</p>
+                <button onclick="oneParam()">传入一个参数</button>
+            </body>
+            
+</html>
