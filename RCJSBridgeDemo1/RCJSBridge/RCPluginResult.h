@@ -14,12 +14,7 @@ typedef enum {
     CDVCommandStatus_NO_RESULT = 0,
     CDVCommandStatus_OK,
     CDVCommandStatus_CLASS_NOT_FOUND_EXCEPTION,
-    CDVCommandStatus_ILLEGAL_ACCESS_EXCEPTION,
-    CDVCommandStatus_INSTANTIATION_EXCEPTION,
-    CDVCommandStatus_MALFORMED_URL_EXCEPTION,
-    CDVCommandStatus_IO_EXCEPTION,
     CDVCommandStatus_INVALID_ACTION,
-    CDVCommandStatus_JSON_EXCEPTION,
     CDVCommandStatus_ERROR
 } RCCommandStatus;
 
@@ -44,7 +39,6 @@ typedef enum {
 +(RCPluginResult*)resultWithStatus:(RCCommandStatus)statusOrdinal messageAsDictionary:(NSDictionary*)theMessage;
 +(RCPluginResult*)resultWithStatus:(RCCommandStatus)statusOrdinal messageAsArrayBuffer:(NSData*)theMessage;
 +(RCPluginResult*)resultWithStatus:(RCCommandStatus)statusOrdinal messageAsMultipart:(NSArray*)theMessages;
-+(RCPluginResult*)resultWithStatus:(RCCommandStatus)statusOrdinal messageToErrorObject:(int)errorCode;
 -(NSString*)argumentsAsJson;
 @end
 

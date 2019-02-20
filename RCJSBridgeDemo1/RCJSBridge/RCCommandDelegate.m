@@ -25,15 +25,14 @@
 }
 
 - (void)sendPluginResult:(RCPluginResult *)pluginResult callbackId:(NSString *)callbackId {
-    NSLog(@"sendPluginResult!");
     int status = [pluginResult.status intValue];
     NSString* argumentsAsJson = [pluginResult argumentsAsJson];
-    NSString* js = [NSString stringWithFormat:@"nativeCallback('%@',%d,%@);",callbackId,status,argumentsAsJson];
-    NSLog(@"js : %@",js);
+    NSString* js = [NSString stringWithFormat:@"RCJSBridge.nativeCallback('%@',%d,%@);",callbackId,status,argumentsAsJson];
+    NSLog(@"PluginResult:status=%d result=%@",status,argumentsAsJson);
     dispatch_async(dispatch_get_main_queue(), ^{
         [self->_wkWebView evaluateJavaScript:js completionHandler:^(id _Nullable res, NSError * _Nullable error) {
             if (error != nil) {
-                NSLog(@"error : %@",error.localizedDescription);
+                NSLog(@"ERROR: %@",error);
             }
         }];
     });

@@ -118,20 +118,15 @@ id messageFromMultipart(NSArray* theMessages)
     return [[self alloc] initWithStatus:statusOrdinal message:messageFromMultipart(theMessages)];
 }
 
-+ (RCPluginResult*)resultWithStatus:(RCCommandStatus)statusOrdinal messageToErrorObject:(int)errorCode
-{
-    NSDictionary* errDict = @{@"code" :[NSNumber numberWithInt:errorCode]};
-    
-    return [[self alloc] initWithStatus:statusOrdinal message:errDict];
-}
-
 - (NSString *)argumentsAsJson {
     id arguments = (self.message == nil ? [NSNull null] : self.message);
     NSArray* argumentsWrappedInArray = [NSArray arrayWithObject:arguments];
     
     NSString* argumentsJSON = [argumentsWrappedInArray rc_JSONString];
+    // 这里没有想清楚为什么要剥离外面的大括号
+    //NSLog(@"argumetsJson before: %@",argumentsJSON);
     argumentsJSON = [argumentsJSON substringWithRange:NSMakeRange(1, [argumentsJSON length] - 2)];
-    
+    //NSLog(@"argumetsJson after: %@",argumentsJSON);
     return argumentsJSON;
 }
 

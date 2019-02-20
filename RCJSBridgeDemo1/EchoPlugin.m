@@ -16,9 +16,138 @@
 - (void)dispose {
 }
 
--(void)echo:(RCInvokedUrlCommand *)command {
-    NSLog(@"call echo at thread : %@",[NSThread currentThread]);
-    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:123];
+-(void)echoString:(RCInvokedUrlCommand *)command {
+    NSString* arguments0 = command.arguments[0];
+    NSLog(@"echoString: arguments at index 0-> %@",arguments0);
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:arguments0];
     [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
+- (void)echoInt:(RCInvokedUrlCommand *)command {
+    NSString* arguments0 = command.arguments[0];
+    NSLog(@"echoInt: arguments at index 0 -> %@",arguments0);
+    int message = (int)1234;
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:message];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+- (void)echoMaxInt:(RCInvokedUrlCommand *)command {
+    NSString* arguments0 = command.arguments[0];
+    NSLog(@"echoMaxInt: arguments at index 0 -> %@",arguments0);
+    int message = (int)2147483647;
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:message];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+- (void)echoMinInt:(RCInvokedUrlCommand *)command {
+    NSString* arguments0 = command.arguments[0];
+    NSLog(@"echoMinInt: arguments at index 0 -> %@",arguments0);
+    int message = (int)-2147483648;
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:message];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+-(void)echoInteger:(RCInvokedUrlCommand *)command {
+    [self echoNSInteger:command];
+}
+
+- (void)echoNSInteger:(RCInvokedUrlCommand *)command {
+    NSString* arguments0 = command.arguments[0];
+    NSLog(@"echoNSInteger: arguments at index 0 -> %@",arguments0);
+    NSInteger message = (NSInteger)1234567;
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSInteger:message];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+-(void)echoMaxInteger:(RCInvokedUrlCommand *)command {
+    [self echoMaxNSInteger:command];
+}
+
+-(void)echoMaxNSInteger:(RCInvokedUrlCommand*)command {
+    NSString* arguments0 = command.arguments[0];
+    NSLog(@"MaxNSInteger : %ld",NSIntegerMax);
+    NSLog(@"echoMaxNSInteger: arguments at index 0 -> %@",arguments0);
+    NSInteger message = NSIntegerMax;
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSInteger:message];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+-(void)echoMinInteger:(RCInvokedUrlCommand*)command {
+    [self echoMinNSInteger:command];
+}
+
+-(void)echoMinNSInteger:(RCInvokedUrlCommand*)command {
+    NSString* arguments0 = command.arguments[0];
+    NSLog(@"MinNSInteger : %ld",NSIntegerMin);
+    NSLog(@"echoMaxNSInteger: arguments at index 0 -> %@",arguments0);
+    NSInteger message = NSIntegerMin;
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSInteger:message];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+-(void)echoUInteger:(RCInvokedUrlCommand *)command {
+    NSString* arguments0 = command.arguments[0];
+    NSLog(@"echoUInteger: arguments at index 0-> %@",arguments0);
+    NSUInteger message = (NSUInteger)1234;
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:message];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+-(void)echoMaxUInteger:(RCInvokedUrlCommand *)command {
+    NSString* arguments0 = command.arguments[0];
+    NSLog(@"echoMaxUInteger: arguments at index 0-> %@",arguments0);
+    NSUInteger message = NSUIntegerMax;
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:message];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+-(void)echoMinUInteger:(RCInvokedUrlCommand *)command {
+    NSString* arguments0 = command.arguments[0];
+    NSLog(@"echoMinUInteger: arguments at index 0-> %@",arguments0);
+    NSUInteger message = 0;
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:message];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+- (void)echoArray:(RCInvokedUrlCommand *)command {
+    NSString* arguments0 = command.arguments[0];
+    NSLog(@"echoArray: arguments at index 0-> %@",arguments0);
+    //NSArray* message = @[@"helloworld",arguments0,@1234,@3.1415926];
+    NSArray* message = @[@"abc",@"bcd",@"cdf",@"fgk"];
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:message];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+- (void)echoDouble:(RCInvokedUrlCommand *)command {
+    NSString* arguments0 = command.arguments[0];
+    NSLog(@"echoDouble: arguments at index 0-> %@",arguments0);
+    double message = 3.1415926;
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:message];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+- (void)echoBool:(RCInvokedUrlCommand *)command {
+    
+}
+
+- (void)echoDictionary:(RCInvokedUrlCommand *)command {
+    NSString* arguments0 = command.arguments[0];
+    NSLog(@"echoDictionary: arguments at index 0-> %@",arguments0);
+    NSDictionary* message = @{
+                                 @"anObject" : arguments0,
+                                 @"helloString" : @"Hello, World!",
+                                 @"magicNumber" : @42,
+                                 @"aValue" : @3.1415926
+                            };
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:message];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+- (void)echoArrayBuffer:(RCInvokedUrlCommand *)command {
+    
+}
+
+- (void)echoMultipart:(RCInvokedUrlCommand *)command {
+    
+}
+
 @end

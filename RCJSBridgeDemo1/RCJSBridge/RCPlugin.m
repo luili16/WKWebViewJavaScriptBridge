@@ -27,10 +27,7 @@
 }
 
 - (void)pluginInitialize {
-    NSLog(@"RCPlugin : pluginInitialize");
-    
 }
 - (void)dispose {
-    NSLog(@"dispose");
 }
 @end

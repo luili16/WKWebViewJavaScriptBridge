@@ -37,9 +37,9 @@
         _pluginsObject = [[NSMutableDictionary alloc]initWithCapacity:20];
         _commandDelegate = [[RCCommandDelegate alloc]init];
         _commandQueue = [[NSOperationQueue alloc]init];
+        _commandQueue.name = @"RCJSBridgeDispatchEventQueue";
         // 将插件注册进去
-        //WKUserContentController* userContentController = [[WKUserContentController alloc]init];
-        [userContentController addScriptMessageHandler:self name:@"RCJSBridge"];
+        [userContentController addScriptMessageHandler:self name:@"RCJSBridgeHandler"];
         [configuration setUserContentController:userContentController];
         _wkWebView = [[WKWebView alloc]initWithFrame:frame configuration:configuration];
         _commandDelegate = [[RCCommandDelegate alloc]initWithWebView:_wkWebView];
@@ -60,33 +60,52 @@
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    // 建立InvokedUrlCommand
     NSArray* jsonEntry = message.body;
     if (jsonEntry == nil) {
         return;
     }
     RCInvokedUrlCommand* command = [RCInvokedUrlCommand commandFrom:jsonEntry];
-    BOOL ok = [self exec:command];
-    if (!ok) {
-        NSLog(@"执行命令失败!");
-    }
+    NSLog(@"RCInvokedUrlCommand:callbackId=%@",command.callbackId);
+    NSLog(@"RCInvokedUrlCommand:className=%@",command.className);
+    NSLog(@"RCInvokedUrlCommand:methodName=%@",command.methodName);
+    NSLog(@"RCInvokedUrlCommand:arguments=%@",command.arguments);
+    [self exec:command];
 }
 
--(BOOL)exec:(RCInvokedUrlCommand*)command {
+-(void)exec:(RCInvokedUrlCommand*)command {
+    
+    if (command.className == nil || [command.className isKindOfClass:[NSNull class]]) {
+        RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_CLASS_NOT_FOUND_EXCEPTION messageAsString:@"service name is null"];
+        [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+        return;
+    }
+    
+    if (command.methodName == nil || [command.methodName isKindOfClass:[NSNull class]]) {
+        RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_INVALID_ACTION messageAsString:@"actioin name is null"];
+        [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+        return;
+    }
+    
     RCPlugin* plugin = _pluginsObject[command.className];
     if (plugin == nil || !([plugin isKindOfClass:[RCPlugin class]])) {
-        NSLog(@"ERROR: Plugin '%@' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.", command.className);
-        return NO;
+        NSString* err =[NSString stringWithFormat:@"ERROR: Plugin '%@' not found, or is not a CDVPlugin. Check your plugin mapping in plugin.json.",command.className];
+        NSLog(@"%@", err);
+        RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_CLASS_NOT_FOUND_EXCEPTION messageAsString:err];
+        [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+        return;
     }
     NSString* realMethodName = [command.methodName stringByAppendingString:@":"];
-    NSLog(@"real method name : %@",realMethodName);
+    NSLog(@"exec method: %@ from class: %@",realMethodName,command.className);
     SEL normalSelector = NSSelectorFromString(realMethodName);
     if (![plugin respondsToSelector:normalSelector]) {
-        return NO;
+        NSString* err = [NSString stringWithFormat:@"ERROR: Plugin '%@' could not response to method name '%@'",command.className,command.methodName];
+        NSLog(@"%@",err);
+        RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_INVALID_ACTION messageAsString:err];
+        [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+        return;
     }
     NSInvocationOperation* operation = [[NSInvocationOperation alloc]initWithTarget:plugin selector:normalSelector object:command];
     [_commandQueue addOperation:operation];
-    return YES;
 }
 
 @end

@@ -20,10 +20,17 @@
 }
 
 -(id)initFromJson:(NSArray *)jsonEntry {
+    
     NSString* callbackId = jsonEntry[0];
     NSString* className = jsonEntry[1];
     NSString* methodName = jsonEntry[2];
-    NSArray* arguments = jsonEntry[3];
+    NSArray* arguments;
+    if (jsonEntry[3] == nil || jsonEntry[3] == [NSNull null]) {
+        arguments = @[];
+    } else {
+        arguments = jsonEntry[3];
+    }
+
     return [self initWithArguments:callbackId className:className methodName:methodName arguments:arguments];
 }
 
@@ -42,7 +49,9 @@
 - (void)massageArguments
 {
     NSMutableArray* newArgs = nil;
-    
+    if (_arguments == nil || [_arguments isKindOfClass:[NSNull class]]) {
+        return;
+    }
     for (NSUInteger i = 0, count = [_arguments count]; i < count; ++i) {
         id arg = [_arguments objectAtIndex:i];
         if (![arg isKindOfClass:[NSDictionary class]]) {
