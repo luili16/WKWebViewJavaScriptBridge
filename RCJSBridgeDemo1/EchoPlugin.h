@@ -80,6 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)echoBool:(RCInvokedUrlCommand*)command;
 -(void)echoDictionary:(RCInvokedUrlCommand*)command;
 -(void)echoArrayBuffer:(RCInvokedUrlCommand*)command;
+-(void)diffArrayBuffer:(RCInvokedUrlCommand*)command;
 -(void)echoMultipart:(RCInvokedUrlCommand*)command;
 -(void)openNextPage:(RCInvokedUrlCommand*)command;
 @end

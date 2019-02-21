@@ -26,6 +26,7 @@
 		1BE7F2B8221A56BB00DE68B7 /* RCJSON_private.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F2B7221A56BB00DE68B7 /* RCJSON_private.m */; };
 		1BE7F2BC221D525C00DE68B7 /* InputPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F2BB221D525C00DE68B7 /* InputPlugin.m */; };
 		1BE7F2BF221D530F00DE68B7 /* NextPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F2BE221D530F00DE68B7 /* NextPageViewController.m */; };
+		1BE7F2C2221E347100DE68B7 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1BE7F2C1221E347100DE68B7 /* test.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		1BE7F2BB221D525C00DE68B7 /* InputPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputPlugin.m; sourceTree = "<group>"; };
 		1BE7F2BD221D530F00DE68B7 /* NextPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NextPageViewController.h; sourceTree = "<group>"; };
 		1BE7F2BE221D530F00DE68B7 /* NextPageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NextPageViewController.m; sourceTree = "<group>"; };
+		1BE7F2C1221E347100DE68B7 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		1BE7F2652217AA5800DE68B7 = {
 			isa = PBXGroup;
 			children = (
+				1BE7F2C1221E347100DE68B7 /* test.jpg */,
 				1BE7F2A82217EF1000DE68B7 /* BridgeConfig */,
 				1BE7F2952217AB2300DE68B7 /* www */,
 				1BE7F2702217AA5800DE68B7 /* RCJSBridgeDemo1 */,
@@ -248,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BE7F2962217AB2300DE68B7 /* www in Resources */,
+				1BE7F2C2221E347100DE68B7 /* test.jpg in Resources */,
 				1BE7F27E2217AA5900DE68B7 /* LaunchScreen.storyboard in Resources */,
 				1BE7F27B2217AA5900DE68B7 /* Assets.xcassets in Resources */,
 				1BE7F2A92217EF1000DE68B7 /* BridgeConfig in Resources */,

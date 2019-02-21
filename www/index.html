@@ -175,7 +175,32 @@
 			}
 			
 			function messageAsArrayBuffer() {
-				
+				RCJSBridge.exec(function(response){
+					console.log("messageAsBuffer 回调成功");
+					var span = document.getElementById('messageAsBuffer');
+					if (response.status != RCJSBridge.rcCommandStatus.CDVCommandStatus_OK) {
+						console.log('执行失败!!');
+						span.innerText = '执行失败, status = ' + response.status;
+						return;
+					}
+					var dataBuffer = response.data;
+					console.log(`dataBuffer type is ${typeof dataBuffer}`);
+					// 将收到的这个buffer再发送回native层
+					RCJSBridge.exec(function(response){
+						console.log("diffArrayBuffer 回调成功");
+						if (response.status != RCJSBridge.rcCommandStatus.CDVCommandStatus_OK) {
+							console.log('执行失败!!');
+							span.innerText = '执行失败，status = ' + response.status;
+							return;
+						}
+						var isEquals = response.data;
+						if (isEquals) {
+							span.innerText = '校验messageArrayBuffer成功';
+						} else {
+							span.innerText = '校验messageArrayBuffer失败';
+						}
+					},'EchoPlugin','diffArrayBuffer',[dataBuffer]);
+				},'EchoPlugin','echoArrayBuffer',['test.jpg']);
 			}
 			
 			function nextPage() {
@@ -222,8 +247,10 @@
 		<div id="messageAsDictionary"></div>
 		<button onclick="messageAsArrayBuffer()">messageAsBuffer</button>
 		<div id="messageAsBuffer"></div>
-		<button onclick="messageAsBool()">messageAsBuffer</button>
+		<button onclick="messageAsBool()">messageAsBool</button>
 		<div id="messageAsBool"></div>
+		<button type="button" onclick="showBase64Image()">showBase64Image</button>
+		<div id="showBase64Image"></div>
 		<button onclick="nextPage()">跳到下一个页面</button>
 	</body>
 

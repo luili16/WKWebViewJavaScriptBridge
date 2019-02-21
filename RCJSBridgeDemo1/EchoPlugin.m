@@ -8,7 +8,9 @@
 
 #import "EchoPlugin.h"
 
-@implementation EchoPlugin
+@implementation EchoPlugin {
+    NSData* _data;
+}
 - (void)pluginInitialize {
     NSLog(@"EchoPlugin pluginInitialize");
 }
@@ -141,12 +143,31 @@
     RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:message];
     [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
-
+// -------测试arraybuffer--------
 - (void)echoArrayBuffer:(RCInvokedUrlCommand *)command {
+    // 先将读取到的NSData发送回去
+    NSString* fileName = command.arguments[0];
+    NSString* path = [[NSBundle mainBundle]pathForResource:fileName ofType:nil];
+    NSLog(@"path : %@",path);
+    _data = [NSData dataWithContentsOfFile:path];
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArrayBuffer:_data];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+-(void)diffArrayBuffer:(RCInvokedUrlCommand *)command {
+    // 判断从js端发送回来的NSData是不是与传回去的一样
+    NSData* data = command.arguments[0];
+    BOOL isEquals =[_data isEqualToData:data];
+    NSLog(@"data is equals: %@",(isEquals == YES?@"true":@"false"));
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:isEquals];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+// ---------测试arraybuffer--------
+- (void)echoMultipart:(RCInvokedUrlCommand *)command {
     
 }
 
-- (void)echoMultipart:(RCInvokedUrlCommand *)command {
+- (void)openNextPage:(RCInvokedUrlCommand *)command {
     
 }
 
