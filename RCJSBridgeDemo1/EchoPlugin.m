@@ -7,6 +7,7 @@
 //
 
 #import "EchoPlugin.h"
+#import "NextPageViewController.h"
 
 @implementation EchoPlugin {
     NSData* _data;
@@ -168,6 +169,25 @@
 }
 
 - (void)openNextPage:(RCInvokedUrlCommand *)command {
+    UIStoryboard* story = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    NextPageViewController* controller = [story instantiateViewControllerWithIdentifier:@"NextPageId"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->_viewController.navigationController pushViewController:controller animated:YES];
+    });
+    RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK];
+    [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+- (void)echoKeepCallback:(RCInvokedUrlCommand *)command {
+    for (int i = 0; i < command.arguments.count; i++) {
+        [NSThread sleepForTimeInterval:2.0];
+        NSString* data = command.arguments[i];
+        RCPluginResult* result = [RCPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:data];
+        [self->_commandDelegate sendPluginResult:result callbackId:command.callbackId keepCallback:(i == command.arguments.count-1?NO:YES)];
+    }
+}
+
+- (void)echoBack:(RCInvokedUrlCommand *)command {
     
 }
 

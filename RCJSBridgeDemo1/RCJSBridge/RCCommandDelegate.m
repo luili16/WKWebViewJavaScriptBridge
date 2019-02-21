@@ -25,9 +25,14 @@
 }
 
 - (void)sendPluginResult:(RCPluginResult *)pluginResult callbackId:(NSString *)callbackId {
+    [self sendPluginResult:pluginResult callbackId:callbackId keepCallback:NO];
+}
+
+- (void)sendPluginResult:(RCPluginResult *)pluginResult callbackId:(NSString *)callbackId keepCallback:(BOOL)keepCallback {
     int status = [pluginResult.status intValue];
+    //NSNumber* keepCallbackNumber = [NSNumber numberWithBool:keepCallback];
     NSString* argumentsAsJson = [pluginResult argumentsAsJson];
-    NSString* js = [NSString stringWithFormat:@"RCJSBridge.nativeCallback('%@',%d,%@);",callbackId,status,argumentsAsJson];
+    NSString* js = [NSString stringWithFormat:@"RCJSBridge.nativeCallback('%@',%d,%d,%@);",callbackId,status,keepCallback,argumentsAsJson];
     NSLog(@"PluginResult:status=%d result=%@",status,argumentsAsJson);
     dispatch_async(dispatch_get_main_queue(), ^{
         [self->_wkWebView evaluateJavaScript:js completionHandler:^(id _Nullable res, NSError * _Nullable error) {

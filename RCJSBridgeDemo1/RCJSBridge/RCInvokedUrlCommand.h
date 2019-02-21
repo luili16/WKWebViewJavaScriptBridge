@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,readonly,strong) NSString* callbackId;
 @property(nonatomic,readonly,strong) NSString* className;
 @property(nonatomic,readonly,strong) NSString* methodName;
+// 数组里的类型只可能是:  NSNumber, NSString, NSDate, NSArray, NSDictionary, and NSNull
+// 参考WKScriptMessage.body的文档描述
 @property(nonatomic,readonly,strong) NSArray* arguments;
 
 +(RCInvokedUrlCommand*)commandFrom:(NSArray*)jsonEntry;

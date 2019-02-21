@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import <WebKit/WebKit.h>
-#import "MessageHandler.h"
 #import "RCJSBridge/RCWebViewBridge.h"
 
 @interface ViewController () {
@@ -37,5 +36,13 @@
     NSURL* url = [NSURL fileURLWithPath:path];
     NSURLRequest* request = [NSURLRequest requestWithURL:url];
     [_wkWebView loadRequest:request];
+}
+
+- (void)viewDidUnload {
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
 }
 @end

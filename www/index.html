@@ -206,8 +206,27 @@
 			function nextPage() {
 				RCJSBridge.exec(function(response) {
 					console.log('nextPage 回调成功');
-				},'EchoPlugin','');
+					
+				},'EchoPlugin','openNextPage');
 			}
+			
+			function keepCallback() {
+				RCJSBridge.exec(function(response){
+					console.log("keepCallback 回调成功");
+					var span = document.getElementById('keepCallback');
+					if (response.status != RCJSBridge.rcCommandStatus.CDVCommandStatus_OK) {
+						console.log('执行失败!!');
+						span.innerText = '执行失败，status = ' + response.status;
+						return;
+					}
+					span.innerText = response.data;
+				},'EchoPlugin','echoKeepCallback',['abc','jack','delay','tom','lala','ci']);
+			}
+			
+			function pressureTest() {
+				
+			}
+			
 		</script>
 	</head>
 
@@ -251,6 +270,10 @@
 		<div id="messageAsBool"></div>
 		<button type="button" onclick="showBase64Image()">showBase64Image</button>
 		<div id="showBase64Image"></div>
+		<button type="button" onclick="keepCallback()">keepCallback</button>
+		<div id="keepCallback">
+		</div>
+		<br/>
 		<button onclick="nextPage()">跳到下一个页面</button>
 	</body>
 

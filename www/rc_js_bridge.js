@@ -98,10 +98,12 @@ var RCJSBridge = (function() {
 		// 保证arguemnts是一个空数组
 		arguments = arguments || [];
 		arguments = massageArgsJsToNative(arguments);
-		var command = [callbackId, serviceName, action, arguments];
 		if (callback != null) {
 			callbackMap.set(callbackId, callback);
+		} else {
+			callbackId = null;
 		}
+		var command = [callbackId, serviceName, action, arguments];
 		console.log(`callbackId : ${callbackId}`);
 		console.log(`serviceName: ${serviceName}`);
 		console.log(`action : ${action}`);
@@ -145,16 +147,24 @@ var RCJSBridge = (function() {
 		return message;
 	}
 
-	var nativeCallback = function RCNativeCallback(callbackId, status, argumentsAsJson) {
+	var nativeCallback = function RCNativeCallback(callbackId, status, keepCallback, argumentsAsJson) {
 		var callback = callbackMap.get(callbackId);
 		if (callback == null || callback == 'undefined') {
 			return;
 		}
-		callbackMap.delete(callbackId);
+		console.log(`keepCallback : ${keepCallback}`);
+		// native端需要js端保持这个回调状态，因为native端需要
+		// 向js端持续不断的发送消息
+		var keepCallbackObj = Boolean(keepCallback);
+		if (!keepCallbackObj) {
+			console.log("删除callbackId: " + callbackId);
+			callbackMap.delete(callbackId);
+		}
 		var response = {}
 		response.status = status;
 		response.data = massageMessageNativeToJs(argumentsAsJson);
-		callback(response);
+		// 不要阻塞当前的函数执行
+		setTimeout(callback,0,response);
 	}
 
 	function debugMap(myMap) {

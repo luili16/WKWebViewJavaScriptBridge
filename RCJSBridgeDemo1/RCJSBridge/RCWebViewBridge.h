@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 @property(nonatomic,strong,readonly) WKWebView* wkWebView;
 -(RCWebViewBridge*) initWithConfiguration:(WKWebViewConfiguration*)configuration userContentController:(WKUserContentController*)userContentController frame:(CGRect)frame viewController:(UIViewController*)viewController configFile:(NSString*)path;
+// 代理ViewController的全部生命周期
+
 @end
 
 NS_ASSUME_NONNULL_END

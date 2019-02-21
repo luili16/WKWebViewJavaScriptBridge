@@ -7,12 +7,25 @@
 //
 
 #import "RCPlugin.h"
+#import "RCJSBridge/RCInvokedUrlCommand.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface InputPlugin : RCPlugin
--(void)arguments0;
+// NSNumber下可能的类型
+-(void)NSNumberArgument:(RCInvokedUrlCommand*)command;
+// ------------------------
 
+// 传一个字符串
+-(void)StringArgument:(RCInvokedUrlCommand*)command;
+// 传一个数组
+-(void)NSArrayArgument:(RCInvokedUrlCommand*)command;
+// 传一个Dictionary
+-(void)NSDictionaryArgument:(RCInvokedUrlCommand*)command;
+// 传一个NSData
+-(void)NSDataArgument:(RCInvokedUrlCommand*)command;
+// 传一个NSNull
+-(void)NSNullArgument:(RCInvokedUrlCommand*)command;
 @end
 
 NS_ASSUME_NONNULL_END

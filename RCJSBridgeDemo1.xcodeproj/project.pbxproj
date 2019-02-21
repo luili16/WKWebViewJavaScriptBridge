@@ -15,7 +15,6 @@
 		1BE7F2812217AA5900DE68B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F2802217AA5900DE68B7 /* main.m */; };
 		1BE7F28B2217AA5900DE68B7 /* RCJSBridgeDemo1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F28A2217AA5900DE68B7 /* RCJSBridgeDemo1Tests.m */; };
 		1BE7F2962217AB2300DE68B7 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 1BE7F2952217AB2300DE68B7 /* www */; };
-		1BE7F2992217B2B700DE68B7 /* MessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F2982217B2B700DE68B7 /* MessageHandler.m */; };
 		1BE7F2A42217EC0D00DE68B7 /* RCWebViewBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F29B2217EC0D00DE68B7 /* RCWebViewBridge.m */; };
 		1BE7F2A52217EC0D00DE68B7 /* RCPluginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F29D2217EC0D00DE68B7 /* RCPluginResult.m */; };
 		1BE7F2A62217EC0D00DE68B7 /* RCInvokedUrlCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F2A12217EC0D00DE68B7 /* RCInvokedUrlCommand.m */; };
@@ -54,8 +53,6 @@
 		1BE7F28A2217AA5900DE68B7 /* RCJSBridgeDemo1Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCJSBridgeDemo1Tests.m; sourceTree = "<group>"; };
 		1BE7F28C2217AA5900DE68B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BE7F2952217AB2300DE68B7 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
-		1BE7F2972217B2B700DE68B7 /* MessageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageHandler.h; sourceTree = "<group>"; };
-		1BE7F2982217B2B700DE68B7 /* MessageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageHandler.m; sourceTree = "<group>"; };
 		1BE7F29B2217EC0D00DE68B7 /* RCWebViewBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCWebViewBridge.m; sourceTree = "<group>"; };
 		1BE7F29C2217EC0D00DE68B7 /* RCPluginResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCPluginResult.h; sourceTree = "<group>"; };
 		1BE7F29D2217EC0D00DE68B7 /* RCPluginResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCPluginResult.m; sourceTree = "<group>"; };
@@ -120,6 +117,7 @@
 		1BE7F2702217AA5800DE68B7 /* RCJSBridgeDemo1 */ = {
 			isa = PBXGroup;
 			children = (
+				1BE7F2C4221E958D00DE68B7 /* plugins */,
 				1BE7F29A2217EBBC00DE68B7 /* RCJSBridge */,
 				1BE7F2712217AA5800DE68B7 /* AppDelegate.h */,
 				1BE7F2722217AA5800DE68B7 /* AppDelegate.m */,
@@ -130,8 +128,6 @@
 				1BE7F27C2217AA5900DE68B7 /* LaunchScreen.storyboard */,
 				1BE7F27F2217AA5900DE68B7 /* Info.plist */,
 				1BE7F2802217AA5900DE68B7 /* main.m */,
-				1BE7F2972217B2B700DE68B7 /* MessageHandler.h */,
-				1BE7F2982217B2B700DE68B7 /* MessageHandler.m */,
 				1BE7F2B3221A433F00DE68B7 /* EchoPlugin.h */,
 				1BE7F2B4221A433F00DE68B7 /* EchoPlugin.m */,
 				1BE7F2BA221D525C00DE68B7 /* InputPlugin.h */,
@@ -168,6 +164,13 @@
 				1BE7F2B7221A56BB00DE68B7 /* RCJSON_private.m */,
 			);
 			path = RCJSBridge;
+			sourceTree = "<group>";
+		};
+		1BE7F2C4221E958D00DE68B7 /* plugins */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = plugins;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,7 +285,6 @@
 				1BE7F2A52217EC0D00DE68B7 /* RCPluginResult.m in Sources */,
 				1BE7F2B222181D7F00DE68B7 /* RCCommandDelegate.m in Sources */,
 				1BE7F2A42217EC0D00DE68B7 /* RCWebViewBridge.m in Sources */,
-				1BE7F2992217B2B700DE68B7 /* MessageHandler.m in Sources */,
 				1BE7F2732217AA5800DE68B7 /* AppDelegate.m in Sources */,
 				1BE7F2BF221D530F00DE68B7 /* NextPageViewController.m in Sources */,
 				1BE7F2BC221D525C00DE68B7 /* InputPlugin.m in Sources */,

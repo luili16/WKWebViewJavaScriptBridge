@@ -83,6 +83,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)diffArrayBuffer:(RCInvokedUrlCommand*)command;
 -(void)echoMultipart:(RCInvokedUrlCommand*)command;
 -(void)openNextPage:(RCInvokedUrlCommand*)command;
+-(void)echoKeepCallback:(RCInvokedUrlCommand*)command;
+-(void)echoBack:(RCInvokedUrlCommand*)command;
 @end
 
 NS_ASSUME_NONNULL_END
