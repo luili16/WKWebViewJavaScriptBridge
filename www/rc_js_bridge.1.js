@@ -86,7 +86,7 @@ var RCJSBridge = (function() {
 		}
 	})();
 
-	var callbackMap = {};
+	var callbackMap = new Map();
 	var callbackIndex = 0;
 
 	var exec = function rcExec(callback, serviceName, action, arguments) {
@@ -99,7 +99,7 @@ var RCJSBridge = (function() {
 		arguments = arguments || [];
 		arguments = massageArgsJsToNative(arguments);
 		if (callback != null) {
-			callbackMap[callbackId] = callback;
+			callbackMap.set(callbackId, callback);
 		} else {
 			// callback是null，就说明不需要有返回值，那么callbackId就设为null
 			callbackId = null;
@@ -109,8 +109,7 @@ var RCJSBridge = (function() {
 		debug(`serviceName: ${serviceName}`);
 		debug(`action : ${action}`);
 		debug(`arguments  : ${arguments}`);
-		//debugMap(callbackMap);
-		debug(callbackMap);
+		debugMap(callbackMap);
 		window.webkit.messageHandlers.RCJSBridgeHandler.postMessage(command);
 	}
 
@@ -153,7 +152,7 @@ var RCJSBridge = (function() {
 		if (callbackId == null) {
 			return;
 		}
-		var callback = callbackMap[callbackId];
+		var callback = callbackMap.get(callbackId);
 		if (callback == null || callback == 'undefined') {
 			return;
 		}
@@ -166,9 +165,7 @@ var RCJSBridge = (function() {
 		var keepCallbackObj = Boolean(keepCallback);
 		if (!keepCallbackObj) {
 			debug("delete callbackId: " + callbackId);
-			//callbackMap.delete(callbackId);
-			delete callbackMap[callbackId];
-			debug(callbackMap);
+			callbackMap.delete(callbackId);
 		}
 		var response = {}
 		response.status = status;
@@ -185,9 +182,9 @@ var RCJSBridge = (function() {
 
 	function debugMap(myMap) {
 		if (isDebug) {
-// 			if (myMap.size === 0) {
-// 				console.log("map size == 0!");
-// 			}
+			if (myMap.size === 0) {
+				console.log("map size == 0!");
+			}
 			for (var [key, value] of myMap) {
 				console.log(key + ' = ' + value);
 			}

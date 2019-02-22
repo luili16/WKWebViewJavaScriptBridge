@@ -23,11 +23,9 @@
     NSMutableDictionary<NSString*,RCPlugin*>* _pluginsObject;
     @private
     RCCommandDelegate* _commandDelegate;
-    @private
-    NSOperationQueue* _commandQueue;
 }
 @end
-
+static NSOperationQueue* _commandQueue;
 @implementation RCWebViewBridge
 
 -(RCWebViewBridge *)initWithConfiguration:(WKWebViewConfiguration *)configuration userContentController:(WKUserContentController *)userContentController frame:(CGRect)frame viewController:(UIViewController *)viewController configFile:(NSString *)path {
@@ -35,13 +33,23 @@
     if (self) {
         _viewController = viewController;
         _pluginsObject = [[NSMutableDictionary alloc]initWithCapacity:20];
-        // 将插件注册进去
+        // init WKWebView
+        NSString* pathForJavascriptStr = [[NSBundle mainBundle]pathForResource:@"rc_js_bridge.js" ofType:nil inDirectory:@"www"];
+        //NSData* jsData = [[NSFileManager defaultManager]contentsAtPath:pathForJavascriptStr];
+        NSString* jsStr = [NSString stringWithContentsOfFile:pathForJavascriptStr encoding:NSUTF8StringEncoding error:nil];
+        WKUserScript* script = [[WKUserScript alloc]initWithSource:jsStr injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES];
+        [userContentController addUserScript:script];
         [userContentController addScriptMessageHandler:self name:@"RCJSBridgeHandler"];
         [configuration setUserContentController:userContentController];
         _wkWebView = [[WKWebView alloc]initWithFrame:frame configuration:configuration];
+        
+        // register plugin
         _commandDelegate = [[RCCommandDelegate alloc]initWithWebView:_wkWebView];
-        _commandQueue = [[NSOperationQueue alloc]init];
-        _commandQueue.name = @"RCJSBridgeDispatchEventQueue";
+        if (_commandQueue == nil) {
+            NSLog(@"init RCJSBridge operation queue of background thread...");
+            _commandQueue = [[NSOperationQueue alloc]init];
+            _commandQueue.name = @"RCJSBridgeDispatchEventQueue";
+        }
         NSFileManager* fileManager = [NSFileManager defaultManager];
         NSData* data = [fileManager contentsAtPath:path];
         NSArray* dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
