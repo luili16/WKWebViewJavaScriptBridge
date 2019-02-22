@@ -35,14 +35,13 @@
     if (self) {
         _viewController = viewController;
         _pluginsObject = [[NSMutableDictionary alloc]initWithCapacity:20];
-        _commandDelegate = [[RCCommandDelegate alloc]init];
-        _commandQueue = [[NSOperationQueue alloc]init];
-        _commandQueue.name = @"RCJSBridgeDispatchEventQueue";
         // 将插件注册进去
         [userContentController addScriptMessageHandler:self name:@"RCJSBridgeHandler"];
         [configuration setUserContentController:userContentController];
         _wkWebView = [[WKWebView alloc]initWithFrame:frame configuration:configuration];
         _commandDelegate = [[RCCommandDelegate alloc]initWithWebView:_wkWebView];
+        _commandQueue = [[NSOperationQueue alloc]init];
+        _commandQueue.name = @"RCJSBridgeDispatchEventQueue";
         NSFileManager* fileManager = [NSFileManager defaultManager];
         NSData* data = [fileManager contentsAtPath:path];
         NSArray* dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -65,10 +64,10 @@
         return;
     }
     RCInvokedUrlCommand* command = [RCInvokedUrlCommand commandFrom:jsonEntry];
-    NSLog(@"RCInvokedUrlCommand:callbackId=%@",command.callbackId);
-    NSLog(@"RCInvokedUrlCommand:className=%@",command.className);
-    NSLog(@"RCInvokedUrlCommand:methodName=%@",command.methodName);
-    NSLog(@"RCInvokedUrlCommand:arguments=%@",command.arguments);
+    //NSLog(@"RCInvokedUrlCommand:callbackId=%@",command.callbackId);
+    //NSLog(@"RCInvokedUrlCommand:className=%@",command.className);
+    //NSLog(@"RCInvokedUrlCommand:methodName=%@",command.methodName);
+    //NSLog(@"RCInvokedUrlCommand:arguments=%@",command.arguments);
     [self exec:command];
 }
 
@@ -85,8 +84,7 @@
         [_commandDelegate sendPluginResult:result callbackId:command.callbackId];
         return;
     }
-    
-    RCPlugin* plugin = _pluginsObject[command.className];
+    RCPlugin* plugin = plugin = _pluginsObject[command.className];;
     if (plugin == nil || !([plugin isKindOfClass:[RCPlugin class]])) {
         NSString* err =[NSString stringWithFormat:@"ERROR: Plugin '%@' not found, or is not a CDVPlugin. Check your plugin mapping in plugin.json.",command.className];
         NSLog(@"%@", err);
@@ -106,6 +104,14 @@
     }
     NSInvocationOperation* operation = [[NSInvocationOperation alloc]initWithTarget:plugin selector:normalSelector object:command];
     [_commandQueue addOperation:operation];
+}
+
+-(void)dispose {
+    NSLog(@"RCWebViewBridge call dispose");
+    for (NSString* key in _pluginsObject) {
+        RCPlugin* plugin = _pluginsObject[key];
+        [plugin dispose];
+    }
 }
 
 @end

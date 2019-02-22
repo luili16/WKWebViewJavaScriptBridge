@@ -36,7 +36,10 @@
     NSURL* url = [NSURL fileURLWithPath:path];
     NSURLRequest* request = [NSURLRequest requestWithURL:url];
     [_wkWebView loadRequest:request];
-    
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+   [_webViewEngine dispose];
 }
 
 /*

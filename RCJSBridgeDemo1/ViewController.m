@@ -38,11 +38,12 @@
     [_wkWebView loadRequest:request];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidDisappear:(BOOL)animated {
     
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    
+- (void)dealloc
+{
+    [_webViewEngine dispose];
 }
 @end

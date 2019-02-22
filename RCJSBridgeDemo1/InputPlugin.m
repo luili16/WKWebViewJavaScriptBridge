@@ -11,7 +11,11 @@
 @implementation InputPlugin
 
 - (void)pluginInitialize {
-    
+    NSLog(@"InputPlugin pluginInitialize");
+}
+
+- (void)dispose {
+    NSLog(@"InputPluin:dispose");
 }
 
 - (void)NSNumberArgument:(RCInvokedUrlCommand *)command {

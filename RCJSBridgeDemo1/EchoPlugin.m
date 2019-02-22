@@ -17,6 +17,7 @@
 }
 
 - (void)dispose {
+    NSLog(@"EchoPlugin:dispose");
 }
 
 -(void)echoString:(RCInvokedUrlCommand *)command {

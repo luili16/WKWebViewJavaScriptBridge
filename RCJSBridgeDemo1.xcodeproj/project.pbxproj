@@ -26,6 +26,12 @@
 		1BE7F2BC221D525C00DE68B7 /* InputPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F2BB221D525C00DE68B7 /* InputPlugin.m */; };
 		1BE7F2BF221D530F00DE68B7 /* NextPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F2BE221D530F00DE68B7 /* NextPageViewController.m */; };
 		1BE7F2C2221E347100DE68B7 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1BE7F2C1221E347100DE68B7 /* test.jpg */; };
+		1BE7F2C7221F9DAB00DE68B7 /* TestPlugin1.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F2C6221F9DAB00DE68B7 /* TestPlugin1.m */; };
+		1BE7F2CA221F9DB900DE68B7 /* TestPlugin2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F2C9221F9DB900DE68B7 /* TestPlugin2.m */; };
+		1BE7F2CD221F9E2100DE68B7 /* TestPlugin3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F2CC221F9E2100DE68B7 /* TestPlugin3.m */; };
+		1BE7F2D0221F9E3200DE68B7 /* TestPlugin4.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F2CF221F9E3200DE68B7 /* TestPlugin4.m */; };
+		1BE7F2D3221F9E8200DE68B7 /* TestPlugin5.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F2D2221F9E8200DE68B7 /* TestPlugin5.m */; };
+		1BE7F2D6221FCA9300DE68B7 /* GlobalPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE7F2D5221FCA9300DE68B7 /* GlobalPlugin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +79,18 @@
 		1BE7F2BD221D530F00DE68B7 /* NextPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NextPageViewController.h; sourceTree = "<group>"; };
 		1BE7F2BE221D530F00DE68B7 /* NextPageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NextPageViewController.m; sourceTree = "<group>"; };
 		1BE7F2C1221E347100DE68B7 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
+		1BE7F2C5221F9DAB00DE68B7 /* TestPlugin1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestPlugin1.h; sourceTree = "<group>"; };
+		1BE7F2C6221F9DAB00DE68B7 /* TestPlugin1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestPlugin1.m; sourceTree = "<group>"; };
+		1BE7F2C8221F9DB900DE68B7 /* TestPlugin2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestPlugin2.h; sourceTree = "<group>"; };
+		1BE7F2C9221F9DB900DE68B7 /* TestPlugin2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestPlugin2.m; sourceTree = "<group>"; };
+		1BE7F2CB221F9E2100DE68B7 /* TestPlugin3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestPlugin3.h; sourceTree = "<group>"; };
+		1BE7F2CC221F9E2100DE68B7 /* TestPlugin3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestPlugin3.m; sourceTree = "<group>"; };
+		1BE7F2CE221F9E3200DE68B7 /* TestPlugin4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestPlugin4.h; sourceTree = "<group>"; };
+		1BE7F2CF221F9E3200DE68B7 /* TestPlugin4.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestPlugin4.m; sourceTree = "<group>"; };
+		1BE7F2D1221F9E8200DE68B7 /* TestPlugin5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestPlugin5.h; sourceTree = "<group>"; };
+		1BE7F2D2221F9E8200DE68B7 /* TestPlugin5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestPlugin5.m; sourceTree = "<group>"; };
+		1BE7F2D4221FCA9300DE68B7 /* GlobalPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalPlugin.h; sourceTree = "<group>"; };
+		1BE7F2D5221FCA9300DE68B7 /* GlobalPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlobalPlugin.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +152,8 @@
 				1BE7F2BB221D525C00DE68B7 /* InputPlugin.m */,
 				1BE7F2BD221D530F00DE68B7 /* NextPageViewController.h */,
 				1BE7F2BE221D530F00DE68B7 /* NextPageViewController.m */,
+				1BE7F2D4221FCA9300DE68B7 /* GlobalPlugin.h */,
+				1BE7F2D5221FCA9300DE68B7 /* GlobalPlugin.m */,
 			);
 			path = RCJSBridgeDemo1;
 			sourceTree = "<group>";
@@ -169,6 +189,16 @@
 		1BE7F2C4221E958D00DE68B7 /* plugins */ = {
 			isa = PBXGroup;
 			children = (
+				1BE7F2C5221F9DAB00DE68B7 /* TestPlugin1.h */,
+				1BE7F2C6221F9DAB00DE68B7 /* TestPlugin1.m */,
+				1BE7F2C8221F9DB900DE68B7 /* TestPlugin2.h */,
+				1BE7F2C9221F9DB900DE68B7 /* TestPlugin2.m */,
+				1BE7F2CB221F9E2100DE68B7 /* TestPlugin3.h */,
+				1BE7F2CC221F9E2100DE68B7 /* TestPlugin3.m */,
+				1BE7F2CE221F9E3200DE68B7 /* TestPlugin4.h */,
+				1BE7F2CF221F9E3200DE68B7 /* TestPlugin4.m */,
+				1BE7F2D1221F9E8200DE68B7 /* TestPlugin5.h */,
+				1BE7F2D2221F9E8200DE68B7 /* TestPlugin5.m */,
 			);
 			path = plugins;
 			sourceTree = "<group>";
@@ -281,13 +311,19 @@
 				1BE7F2762217AA5800DE68B7 /* ViewController.m in Sources */,
 				1BE7F2A72217EC0D00DE68B7 /* RCPlugin.m in Sources */,
 				1BE7F2812217AA5900DE68B7 /* main.m in Sources */,
+				1BE7F2D3221F9E8200DE68B7 /* TestPlugin5.m in Sources */,
 				1BE7F2A62217EC0D00DE68B7 /* RCInvokedUrlCommand.m in Sources */,
 				1BE7F2A52217EC0D00DE68B7 /* RCPluginResult.m in Sources */,
+				1BE7F2CD221F9E2100DE68B7 /* TestPlugin3.m in Sources */,
 				1BE7F2B222181D7F00DE68B7 /* RCCommandDelegate.m in Sources */,
 				1BE7F2A42217EC0D00DE68B7 /* RCWebViewBridge.m in Sources */,
+				1BE7F2D6221FCA9300DE68B7 /* GlobalPlugin.m in Sources */,
 				1BE7F2732217AA5800DE68B7 /* AppDelegate.m in Sources */,
+				1BE7F2D0221F9E3200DE68B7 /* TestPlugin4.m in Sources */,
 				1BE7F2BF221D530F00DE68B7 /* NextPageViewController.m in Sources */,
+				1BE7F2CA221F9DB900DE68B7 /* TestPlugin2.m in Sources */,
 				1BE7F2BC221D525C00DE68B7 /* InputPlugin.m in Sources */,
+				1BE7F2C7221F9DAB00DE68B7 /* TestPlugin1.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

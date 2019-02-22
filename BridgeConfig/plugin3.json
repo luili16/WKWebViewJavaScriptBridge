@@ -1,11 +1,6 @@
 [
     {
         "service":{
-            "className":"InputPlugin"
-        }
-    },
-    {
-        "service":{
             "className":"TestPlugin1"
         }
     },

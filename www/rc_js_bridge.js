@@ -1,5 +1,5 @@
 var RCJSBridge = (function() {
-
+	var isDebug = false;
 	var rcCommandStatus = {
 		CDVCommandStatus_NO_RESULT: 0,
 		CDVCommandStatus_OK: 1,
@@ -95,19 +95,20 @@ var RCJSBridge = (function() {
 			callbackIndex = 0;
 		}
 		var callbackId = 'rc' + callbackIndex.toString() + Date.now();
-		// 保证arguemnts是一个空数组
+		// 保证arguemnts是一个数组
 		arguments = arguments || [];
 		arguments = massageArgsJsToNative(arguments);
 		if (callback != null) {
 			callbackMap.set(callbackId, callback);
 		} else {
+			// callback是null，就说明不需要有返回值，那么callbackId就设为null
 			callbackId = null;
 		}
 		var command = [callbackId, serviceName, action, arguments];
-		console.log(`callbackId : ${callbackId}`);
-		console.log(`serviceName: ${serviceName}`);
-		console.log(`action : ${action}`);
-		console.log(`arguments  : ${arguments}`);
+		debug(`callbackId : ${callbackId}`);
+		debug(`serviceName: ${serviceName}`);
+		debug(`action : ${action}`);
+		debug(`arguments  : ${arguments}`);
 		debugMap(callbackMap);
 		window.webkit.messageHandlers.RCJSBridgeHandler.postMessage(command);
 	}
@@ -148,31 +149,45 @@ var RCJSBridge = (function() {
 	}
 
 	var nativeCallback = function RCNativeCallback(callbackId, status, keepCallback, argumentsAsJson) {
+		if (callbackId == null) {
+			return;
+		}
 		var callback = callbackMap.get(callbackId);
 		if (callback == null || callback == 'undefined') {
 			return;
 		}
-		console.log(`keepCallback : ${keepCallback}`);
+		debug(`keepCallback : ${keepCallback}`);
+		debug(`argumentsAsJson : ${argumentsAsJson}`);
 		// native端需要js端保持这个回调状态，因为native端需要
 		// 向js端持续不断的发送消息
+		// 这里会有一个潜在的bug，当native端结束向js端发送消息，并且没有
+		// 将keepCallback置为false的话，会导致js端发生内存泄漏。
 		var keepCallbackObj = Boolean(keepCallback);
 		if (!keepCallbackObj) {
-			console.log("删除callbackId: " + callbackId);
+			debug("delete callbackId: " + callbackId);
 			callbackMap.delete(callbackId);
 		}
 		var response = {}
 		response.status = status;
-		response.data = massageMessageNativeToJs(argumentsAsJson);
+		response.data = argumentsAsJson == null?null:massageMessageNativeToJs(argumentsAsJson);
 		// 不要阻塞当前的函数执行
 		setTimeout(callback,0,response);
 	}
+	
+	function debug(msg) {
+		if (isDebug) {
+			console.log(msg);
+		}
+	}
 
 	function debugMap(myMap) {
-		if (myMap.size === 0) {
-			console.log("map size == 0!");
-		}
-		for (var [key, value] of myMap) {
-			console.log(key + ' = ' + value);
+		if (isDebug) {
+			if (myMap.size === 0) {
+				console.log("map size == 0!");
+			}
+			for (var [key, value] of myMap) {
+				console.log(key + ' = ' + value);
+			}
 		}
 	}
 
