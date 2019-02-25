@@ -89,26 +89,26 @@ var RCJSBridge = (function() {
 	var callbackMap = {};
 	var callbackIndex = 0;
 
-	var exec = function rcExec(callback, serviceName, action, arguments) {
+	var exec = function rcExec(callback, serviceName, action, args) {
 		callbackIndex++;
 		if (callbackIndex === Number.MAX_INTEGER) {
 			callbackIndex = 0;
 		}
 		var callbackId = 'rc' + callbackIndex.toString() + Date.now();
 		// 保证arguemnts是一个数组
-		arguments = arguments || [];
-		arguments = massageArgsJsToNative(arguments);
+		args = args || [];
+		args = massageArgsJsToNative(args);
 		if (callback != null) {
 			callbackMap[callbackId] = callback;
 		} else {
 			// callback是null，就说明不需要有返回值，那么callbackId就设为null
 			callbackId = null;
 		}
-		var command = [callbackId, serviceName, action, arguments];
+		var command = [callbackId, serviceName, action, args];
 		debug(`callbackId : ${callbackId}`);
 		debug(`serviceName: ${serviceName}`);
 		debug(`action : ${action}`);
-		debug(`arguments  : ${arguments}`);
+		debug(`arguments  : ${args}`);
 		//debugMap(callbackMap);
 		debug(callbackMap);
 		window.webkit.messageHandlers.RCJSBridgeHandler.postMessage(command);
